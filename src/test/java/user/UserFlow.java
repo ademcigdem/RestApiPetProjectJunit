@@ -27,7 +27,7 @@ public class UserFlow {
      * The test expecting to create successfully a user on the page
      */
     @Test
-    public void createUserTest() {
+    public void test1() {
         response =
                 given().
                         contentType(ContentType.JSON).
@@ -53,7 +53,7 @@ public class UserFlow {
 
     @Test
     @Order(1)
-    public void getCreatedUser() {
+    public void test2() {
         given().
                 accept("application/json").
                 when().
@@ -68,11 +68,11 @@ public class UserFlow {
     }
 
     /**
-     * Update the created user
+     * Update the created user(dan_greaker)
      */
     @Test
     @Order(2)
-    public void updateUser() {
+    public void test3() {
         given().
                 contentType(ContentType.JSON).
                 accept("application/json").
@@ -88,11 +88,11 @@ public class UserFlow {
     }
 
     /**
-     * Get updated user
+     * Get updated user (john_doey)
      */
     @Test
     @Order(3)
-    public void getUpdatedUser() {
+    public void test4() {
         given().
                 accept("application/json").
                 when().
@@ -107,11 +107,11 @@ public class UserFlow {
     }
 
     /**
-     * Delete the created user
+     * Delete the updated user(john_doey)
      */
     @Test
     @Order(4)
-    public void deleteUser() {
+    public void test5() {
         given().
                 contentType(ContentType.JSON).
                 accept("application/json").
@@ -126,15 +126,53 @@ public class UserFlow {
     }
 
     /**
-     * Get deleted user
+     * Delete the first created user(dan_greaker)
      */
     @Test
     @Order(5)
-    public void getDeletedUser() {
+    public void test6() {
+        given().
+                contentType(ContentType.JSON).
+                accept("application/json").
+                when().
+                delete("/dan_greaker").
+                then().assertThat().
+                statusCode(200).
+                contentType(ContentType.JSON).
+                body("message", is("dan_greaker"),
+                        "code", is(200)).log().all();
+
+    }
+
+    /**
+     * Get deleted user (john_doey)
+     */
+    @Test
+    @Order(6)
+    public void test7() {
         given().
                 accept("application/json").
                 when().
                 get("/john_doey").
+                then().
+                assertThat().
+                statusCode(404).
+                contentType(ContentType.JSON).log().all().
+                body("code", is(1),
+                        "message", is("User not found"));
+
+    }
+
+    /**
+     * Get first deleted user (dan_greaker)
+     */
+    @Test
+    @Order(6)
+    public void test8() {
+        given().
+                accept("application/json").
+                when().
+                get("/dan_greaker").
                 then().
                 assertThat().
                 statusCode(404).
