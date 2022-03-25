@@ -2,13 +2,12 @@ package user;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 
 import static io.restassured.RestAssured.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.Matchers.*;
 
 public class UserFlow {
@@ -43,7 +42,8 @@ public class UserFlow {
                 contentType(ContentType.JSON).log().all().
                 body(
                         "message", is("5555"),
-                        "code", is(200));
+                        "code", is(200)).
+                body(matchesJsonSchemaInClasspath("responseSchema/createUserSchema.json"));
 
     }
 
