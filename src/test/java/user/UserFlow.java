@@ -29,21 +29,22 @@ public class UserFlow {
     public void test1() {
         response =
                 given().
-                        contentType(ContentType.JSON).
-                        accept("application/json").
-                        body(new File("src/test/resources/requestFile/createUser.json")).
-                        when().
+                    contentType(ContentType.JSON).
+                    accept("application/json").
+                    body(new File("src/test/resources/requestFile/createUser.json")).
+                when().
                         post();
 
         response.
                 then().
                 assertThat().
-                statusCode(200).
-                contentType(ContentType.JSON).log().all().
-                body(
+                    statusCode(200).
+                    contentType(ContentType.JSON).log().all().
+                    body(
                         "message", is("5555"),
                         "code", is(200)).
-                body(matchesJsonSchemaInClasspath("responseSchema/createUserSchema.json"));
+                    body(
+                            matchesJsonSchemaInClasspath("responseSchema/createUserSchema.json"));
 
     }
 
@@ -54,11 +55,11 @@ public class UserFlow {
     @Test
     @Order(1)
     public void test2() {
-        given().
+            given().
                 accept("application/json").
-                when().
+            when().
                 get("/dan_greaker").
-                then().
+            then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).log().all().
                 body("id", is(5555),
@@ -73,13 +74,13 @@ public class UserFlow {
     @Test
     @Order(2)
     public void test3() {
-        given().
+            given().
                 contentType(ContentType.JSON).
                 accept("application/json").
                 body(new File("src/test/resources/requestFile/updateUser.json")).
-                when().
+            when().
                 put("/dan_greaker").
-                then().assertThat().
+            then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
                 body("message", is("4444"),
@@ -93,11 +94,11 @@ public class UserFlow {
     @Test
     @Order(3)
     public void test4() {
-        given().
+            given().
                 accept("application/json").
-                when().
+            when().
                 get("/john_doey").
-                then().
+            then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).log().all().
                 body("id", is(4444),
@@ -112,12 +113,12 @@ public class UserFlow {
     @Test
     @Order(4)
     public void test5() {
-        given().
+            given().
                 contentType(ContentType.JSON).
                 accept("application/json").
-                when().
+            when().
                 delete("/john_doey").
-                then().assertThat().
+            then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
                 body("message", is("john_doey"),
@@ -131,12 +132,12 @@ public class UserFlow {
     @Test
     @Order(5)
     public void test6() {
-        given().
+            given().
                 contentType(ContentType.JSON).
                 accept("application/json").
-                when().
+            when().
                 delete("/dan_greaker").
-                then().assertThat().
+            then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
                 body("message", is("dan_greaker"),
@@ -150,11 +151,11 @@ public class UserFlow {
     @Test
     @Order(6)
     public void test7() {
-        given().
+            given().
                 accept("application/json").
-                when().
+            when().
                 get("/john_doey").
-                then().
+            then().
                 assertThat().
                 statusCode(404).
                 contentType(ContentType.JSON).log().all().
@@ -169,12 +170,11 @@ public class UserFlow {
     @Test
     @Order(6)
     public void test8() {
-        given().
+            given().
                 accept("application/json").
-                when().
+            when().
                 get("/dan_greaker").
-                then().
-                assertThat().
+            then().assertThat().
                 statusCode(404).
                 contentType(ContentType.JSON).log().all().
                 body("code", is(1),
