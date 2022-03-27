@@ -33,7 +33,7 @@ public class UserFlow {
                     accept("application/json").
                     body(new File("src/test/resources/requestFile/createUser.json")).
                 when().
-                        post();
+                    post();
 
         response.
                 then().
