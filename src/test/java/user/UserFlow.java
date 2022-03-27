@@ -39,7 +39,8 @@ public class UserFlow {
                 then().
                 assertThat().
                     statusCode(200).
-                    contentType(ContentType.JSON).log().all().
+                    contentType(ContentType.JSON).
+                    log().all().
                     body(
                         "message", is("5555"),
                         "code", is(200)).
@@ -61,7 +62,8 @@ public class UserFlow {
                 get("/dan_greaker").
             then().assertThat().
                 statusCode(200).
-                contentType(ContentType.JSON).log().all().
+                contentType(ContentType.JSON).
+                log().all().
                 body("id", is(5555),
                         "username", is("dan_greaker"),
                         "email", is("dan.greaker@gmail.com"));
@@ -83,6 +85,7 @@ public class UserFlow {
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
+                log().all().
                 body("message", is("4444"),
                         "code", is(200)).log().all();
 
@@ -100,7 +103,8 @@ public class UserFlow {
                 get("/john_doey").
             then().assertThat().
                 statusCode(200).
-                contentType(ContentType.JSON).log().all().
+                contentType(ContentType.JSON).
+                log().all().
                 body("id", is(4444),
                         "username", is("john_doey"),
                         "email", is("john_doey@gmail.com"));
@@ -121,6 +125,7 @@ public class UserFlow {
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
+                log().all().
                 body("message", is("john_doey"),
                         "code", is(200)).log().all();
 
@@ -158,7 +163,8 @@ public class UserFlow {
             then().
                 assertThat().
                 statusCode(404).
-                contentType(ContentType.JSON).log().all().
+                contentType(ContentType.JSON).
+                log().all().
                 body("code", is(1),
                         "message", is("User not found"));
 
@@ -176,7 +182,8 @@ public class UserFlow {
                 get("/dan_greaker").
             then().assertThat().
                 statusCode(404).
-                contentType(ContentType.JSON).log().all().
+                contentType(ContentType.JSON).
+                log().all().
                 body("code", is(1),
                         "message", is("User not found"));
 
