@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.Matchers.*;
 
-public class UserFlow extends Hooks{
+public class UserFlow extends Hooks {
 
 
     private Response response;

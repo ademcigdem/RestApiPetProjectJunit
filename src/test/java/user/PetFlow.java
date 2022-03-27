@@ -15,7 +15,7 @@ import static java.util.Collections.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PetFlow extends Hooks{
+public class PetFlow extends Hooks {
 
     private Response response;
 
