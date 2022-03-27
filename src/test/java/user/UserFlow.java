@@ -10,21 +10,15 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.Matchers.*;
 
-public class UserFlow {
+public class UserFlow extends Hooks{
 
 
     private Response response;
 
-    @BeforeEach
-    public void createSetup() {
-        baseURI = "https://petstore.swagger.io/v2/";
-        basePath = "user";
-    }
 
-
-    /**
+    /**************************************************************
      * The test expecting to create successfully a user on the page
-     */
+     *************************************************************/
     @Test
     public void test1() {
         response =
@@ -33,7 +27,7 @@ public class UserFlow {
                     accept("application/json").
                     body(new File("src/test/resources/requestFile/createUser.json")).
                 when().
-                    post();
+                    post("/user");
 
         response.
                 then().
@@ -59,7 +53,7 @@ public class UserFlow {
             given().
                 accept("application/json").
             when().
-                get("/dan_greaker").
+                get("/user/dan_greaker").
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -81,7 +75,7 @@ public class UserFlow {
                 accept("application/json").
                 body(new File("src/test/resources/requestFile/updateUser.json")).
             when().
-                put("/dan_greaker").
+                put("/user/dan_greaker").
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -100,7 +94,7 @@ public class UserFlow {
             given().
                 accept("application/json").
             when().
-                get("/john_doey").
+                get("/user/john_doey").
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -121,7 +115,7 @@ public class UserFlow {
                 contentType(ContentType.JSON).
                 accept("application/json").
             when().
-                delete("/john_doey").
+                delete("/user/john_doey").
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -141,7 +135,7 @@ public class UserFlow {
                 contentType(ContentType.JSON).
                 accept("application/json").
             when().
-                delete("/dan_greaker").
+                delete("/user/dan_greaker").
             then().assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -159,7 +153,7 @@ public class UserFlow {
             given().
                 accept("application/json").
             when().
-                get("/john_doey").
+                get("/user/john_doey").
             then().
                 assertThat().
                 statusCode(404).
@@ -179,7 +173,7 @@ public class UserFlow {
             given().
                 accept("application/json").
             when().
-                get("/dan_greaker").
+                get("/user/dan_greaker").
             then().assertThat().
                 statusCode(404).
                 contentType(ContentType.JSON).

@@ -1,0 +1,18 @@
+{
+  "id": 9898,
+  "category": {
+    "id": 8888,
+    "name": "flaky"
+  },
+  "name": "fluffy",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 300,
+      "name": "fluftyness"
+    }
+  ],
+  "status": "available"
+}
