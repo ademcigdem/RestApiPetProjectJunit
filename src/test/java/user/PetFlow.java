@@ -1,7 +1,7 @@
 package user;
 
+
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import pages.Category;
 import pages.Pet;
@@ -11,17 +11,14 @@ import java.io.File;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static java.util.Collections.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PetFlow extends Hooks {
 
-    private Response response;
-    private Map<Object, Object> responseMap;
-    private static int pet_id;
-    private Pet requestPet;
+
 
 
     /*************************************************
@@ -43,9 +40,9 @@ public class PetFlow extends Hooks {
 
         responseMap = response.body().as(Map.class);
 
-        assertEquals(responseMap.get("id"), 9898);
-        assertEquals(responseMap.get("name"), "fluffy");
-        assertEquals(responseMap.get("status"), "available");
+        assertEquals( 9898,responseMap.get("id"));
+        assertEquals( "fluffy",responseMap.get("name"));
+        assertEquals( "available",responseMap.get("status"));
         pet_id = (int) responseMap.get("id");
     }
 
