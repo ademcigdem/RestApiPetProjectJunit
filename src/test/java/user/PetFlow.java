@@ -19,10 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PetFlow extends Hooks {
 
-    private Response response;
-    private Map<Object, Object> responseMap;
-    private static int pet_id;
-    private Pet requestPet;
+
 
 
     /*************************************************

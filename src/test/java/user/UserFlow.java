@@ -13,8 +13,6 @@ import static org.hamcrest.Matchers.*;
 public class UserFlow extends Hooks {
 
 
-    private Response response;
-
 
     /**************************************************************
      * The test expecting to create successfully a user on the page
