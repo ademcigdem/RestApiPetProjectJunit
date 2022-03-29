@@ -18,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PetFlow extends Hooks {
 
     private Response response;
+    private Map<Object, Object> responseMap;
+    private static int pet_id;
 
 
     /*************************************************
@@ -29,18 +31,20 @@ public class PetFlow extends Hooks {
     @Test
     public void test1() {
 
-        response = given().
-                contentType(ContentType.JSON).
-                accept("application/json").
-                body(new File("src/test/resources/requestFile/createPet.json")).
+        response =
+                given().
+                    contentType(ContentType.JSON).
+                    accept("application/json").
+                    body(new File("src/test/resources/requestFile/createPet.json")).
                 when().
-                post("/pet");
+                    post("/pet");
 
-        Map<Object, Object> responseMap = response.body().as(Map.class);
+        responseMap = response.body().as(Map.class);
 
         assertEquals(responseMap.get("id"), 9898);
         assertEquals(responseMap.get("name"), "fluffy");
         assertEquals(responseMap.get("status"), "available");
+        pet_id = (int) responseMap.get("id");
     }
 
 
@@ -65,15 +69,36 @@ public class PetFlow extends Hooks {
                 contentType(ContentType.JSON).
                 accept("application/json").
                 body(requestPet).
-                when().
+         when().
                 post("/pet").
-                then().assertThat().log().all().
+         then().assertThat().log().all().
                 statusCode(200).
                 body("id", equalTo(9999),
                         "name",is("ponpon"),
                         "status",is("available"),
                         "tags[0].id",is(1010));
 
+
+    }
+
+    /*************************************************
+     * Created previous test's pet calling details
+     * GET METHOD
+     *************************************************/
+
+    @Test
+    public void test3(){
+
+         given().log().all().
+                accept("application/json").
+         when().
+            get("/pet/" + pet_id).
+         then().assertThat().
+            statusCode(200).
+            body("id",is(pet_id),
+                    "name",equalTo("fluffy"),
+                    "status",equalTo("available")).
+                log().all() ;
 
     }
 
