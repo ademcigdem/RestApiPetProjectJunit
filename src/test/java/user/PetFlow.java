@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static java.util.Collections.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +21,7 @@ public class PetFlow extends Hooks {
     private Response response;
     private Map<Object, Object> responseMap;
     private static int pet_id;
+    private Pet requestPet;
 
 
     /*************************************************
@@ -61,7 +63,7 @@ public class PetFlow extends Hooks {
         /**
          * The constructor updating the request Json payload
          */
-        Pet requestPet = new Pet(9999,new Category(99,"fluff"),
+        requestPet = new Pet(9999,new Category(99,"fluff"),
                 "ponpon", singletonList("null"), singletonList(new Tag(1010, "crash")),
                 "available");
 
@@ -102,4 +104,59 @@ public class PetFlow extends Hooks {
 
     }
 
+    /*************************************************
+     * Update previous test's created pet
+     * PUT METHOD
+     *************************************************/
+
+    @Test
+    public void test4(){
+        requestPet = new Pet(8888,new Category(88,"pluffy"),
+                "tomtom", singletonList("picture"), singletonList(new Tag(9090, "nope")),
+                "pending");
+
+        response =
+                given().
+                    contentType(ContentType.JSON).
+                    accept("application/json").
+                    body(requestPet).
+                when().
+                    put("/pet");
+
+        response.
+                then().assertThat().
+                    statusCode(200).
+                    body("id",is(8888),
+                    "name",equalTo("tomtom"),
+                    "status",equalTo("pending")).
+                        log().all();
+
+        responseMap = response.body().as(Map.class);
+        pet_id = (int) responseMap.get("id");
+
+    }
+
+    /*************************************************
+     * Updated previous test's pet calling details
+     * Validation has JSON Schema validation as well
+     * GET METHOD
+     *************************************************/
+
+    @Test
+    public void test5(){
+
+        given().log().all().
+                accept("application/json").
+                when().
+                get("/pet/" + pet_id).
+                then().assertThat().
+                statusCode(200).
+                body("id",is(pet_id),
+                        "name",equalTo("tomtom"),
+                        "status",equalTo("pending")).
+                body(
+                        matchesJsonSchemaInClasspath("responseSchema/getUpdatedPetSchema.json")).
+                log().all() ;
+
+    }
 }
