@@ -156,4 +156,51 @@ public class PetFlow extends Hooks {
                 log().all() ;
 
     }
+
+
+
+    /*************************************************
+     * Delete first created test's  pet
+     * DELETE METHOD
+     *************************************************/
+
+    @Test
+    public void test6(){
+
+
+                given().
+                        contentType(ContentType.JSON).
+                        accept("application/json").
+                when().
+                        delete("/pet/"+pet_id).
+                then().assertThat().
+                        statusCode(200).
+                        body("code",is(200),
+                        "message",is("8888")).
+                        log().all();
+
+    }
+
+
+    /*************************************************
+     * Validating the deleted pet information
+     * The test suppose to get error message
+     * GET METHOD
+     *************************************************/
+
+    @Test
+    public void test7(){
+
+        given().log().all().
+                accept("application/json").
+                when().
+                get("/pet/" + pet_id).
+                then().assertThat().
+                statusCode(404).
+                body("code",is(1),
+                        "message",equalTo("Pet not found")).
+                log().all() ;
+
+    }
+
 }
