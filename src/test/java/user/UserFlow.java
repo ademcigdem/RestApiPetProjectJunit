@@ -40,9 +40,10 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
+    /******************************
      * Get created user credentials
-     */
+     * GET METHOD
+     *****************************/
 
     @Test
     @Order(1)
@@ -61,9 +62,10 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
+    /**************************************
      * Update the created user(dan_greaker)
-     */
+     * PUT METHOD
+     ********************************/
     @Test
     @Order(2)
     public void test3() {
@@ -82,9 +84,10 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
+    /******************************
      * Get updated user (john_doey)
-     */
+     * GET METHOD
+     *****************************/
     @Test
     @Order(3)
     public void test4() {
@@ -102,9 +105,10 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
+    /***********************************
      * Delete the updated user(john_doey)
-     */
+     * DELETE MRTHOD
+     **********************************/
     @Test
     @Order(4)
     public void test5() {
@@ -122,9 +126,10 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
+    /*****************************************
      * Delete the first created user(dan_greaker)
-     */
+     * DELETE METHOD
+     ****************************************/
     @Test
     @Order(5)
     public void test6() {
@@ -141,9 +146,12 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
+    /*******************************
      * Get deleted user (john_doey)
-     */
+     * Validated user already deleted.
+     * Thr test suppose to get error message
+     * GET METHOD
+     *****************************/
     @Test
     @Order(6)
     public void test7() {
@@ -161,9 +169,12 @@ public class UserFlow extends Hooks {
 
     }
 
-    /**
-     * Get first deleted user (dan_greaker)
-     */
+    /*******************************
+     * Get deleted user (dan_graker)
+     * Validated user already deleted.
+     * Thr test suppose to get error message
+     * GET METHOD
+     *****************************/
     @Test
     @Order(6)
     public void test8() {
