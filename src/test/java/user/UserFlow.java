@@ -18,11 +18,12 @@ public class UserFlow extends Hooks {
      *************************************************************/
     @Test
     public void test1() {
+        File file = new File("src/test/resources/requestFile/createUser.json");
         response =
                 given().
                     contentType(ContentType.JSON).
                     accept("application/json").
-                    body(new File("src/test/resources/requestFile/createUser.json")).
+                    body(file).
                 when().
                     post("/user");
 
