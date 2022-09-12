@@ -10,8 +10,8 @@
     <description>The Restful API Project on the Pet store API</description>
 
     <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <restassured.version>4.5.1</restassured.version>
         <junit.version>5.4.0</junit.version>
         <gson.version>2.9.0</gson.version>
