@@ -7,6 +7,7 @@ import java.io.File;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static java.net.HttpURLConnection.*;
 import static org.hamcrest.Matchers.*;
 
 public class UserFlow extends Hooks {
@@ -30,12 +31,12 @@ public class UserFlow extends Hooks {
         response.
                 then().
                 assertThat().
-                    statusCode(200).
+                    statusCode(HTTP_OK).
                     contentType(ContentType.JSON).
                     log().all().
                     body(
                         "message", is("5555"),
-                        "code", is(200)).
+                        "code", is(HTTP_OK)).
                     body(
                             matchesJsonSchemaInClasspath("responseSchema/createUserSchema.json"));
 
@@ -58,7 +59,7 @@ public class UserFlow extends Hooks {
                 contentType(ContentType.JSON).
                 log().all().
                 body("id", is(5555),
-                        "username", is("dan_greaker"),
+                        "username", equalTo("dan_greaker"),
                         "email", is("dan.greaker@gmail.com"));
 
     }
@@ -173,7 +174,7 @@ public class UserFlow extends Hooks {
     /*******************************
      * Get deleted user (dan_graker)
      * Validated user already deleted.
-     * Thr test suppose to get error message
+     * The test suppose to get error message
      * GET METHOD
      *****************************/
     @Test
@@ -184,7 +185,7 @@ public class UserFlow extends Hooks {
             when().
                 get("/user/dan_greaker").
             then().assertThat().
-                statusCode(404).
+                statusCode(HTTP_NOT_FOUND).
                 contentType(ContentType.JSON).
                 log().all().
                 body("code", is(1),
